@@ -1,0 +1,36 @@
+# Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual Environment
+venv/
+env/
+
+# Django SQLite database
+db.sqlite3
+
+# Django migration files
+*.log
+*.pot
+*.pyc
+*.pyo
+
+# Ignore Django secret key and settings file (optional)
+*.env
+settings.py
+
+# Ignore media and static directories (optional)
+media/
+static/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+
+# MacOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
