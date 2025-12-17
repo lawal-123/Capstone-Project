@@ -17,13 +17,17 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     permission_classes = [AllowAny] 
 
-class CartViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class CartViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = CartSerializer
     permission_classes = [IsAuthenticated]
 
+    def list(self, request, *args, **kwargs):
+        cart, created = Cart.objects.get_or_create(user=request.user)
+        serializer = self.get_serializer(cart)
+        return Response(serializer.data)
     def get_queryset(self):
         return Cart.objects.filter(user=self.request.user)
-    @action(detail=False, methods=['post'], serializer_class = 'CheckoutSerializer')
+    
     def retrieve(self, request, *args, **kwargs):
         cart, created = Cart.objects.get_or_create(user=request.user)
         serializer = self.get_serializer(cart)
