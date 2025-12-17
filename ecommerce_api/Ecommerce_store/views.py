@@ -1,5 +1,6 @@
 from rest_framework import viewsets, mixins, status
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Category, Product, Order, OrderItem, Cart, CartItem
 from .serializers import (
@@ -22,16 +23,14 @@ class CartViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 
     def get_queryset(self):
         return Cart.objects.filter(user=self.request.user)
-
+    @action(detail=False, methods=['post'], serializer_class = 'CheckoutSerializer')
     def retrieve(self, request, *args, **kwargs):
         cart, created = Cart.objects.get_or_create(user=request.user)
         serializer = self.get_serializer(cart)
         return Response(serializer.data)
 
 class CartItemViewSet(viewsets.ModelViewSet):
-    """
-    Handles adding, updating, and removing items in the cart.
-    """
+
     serializer_class = CartItemSerializer
     permission_classes = [IsAuthenticated]
     
@@ -44,8 +43,32 @@ class CartItemViewSet(viewsets.ModelViewSet):
         serializer.save(cart=cart)
 
 class OrderViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
-
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
+def place_order(self, request):
+        cart, created = Cart.objects.get_or_create(user=request.user)
+        if not cart.items.exists():
+            return Response({"detail": "Cart is empty."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        order = Order.objects.create(user=request.user, total_amount=0)
+        total_amount = 0
+        
+        for item in cart.items.all():
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                price=item.product.price,
+                quantity=item.quantity
+            )
+            total_amount += item.product.price * item.quantity
+        
+        order.total_amount = total_amount
+        order.save()
+        
+        cart.items.all().delete()
+        
+        serializer = self.get_serializer(order)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
