@@ -47,7 +47,6 @@ class CartItemViewSet(viewsets.ModelViewSet):
         serializer.save(cart=cart)
 
 class OrderViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
-
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
     def get_queryset(self):

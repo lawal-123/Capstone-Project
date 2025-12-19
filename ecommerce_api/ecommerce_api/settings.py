@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-!31^%lx6p^jaky!9kc^#v!p45@*si6%de9n@ylksx7mvnz=fn5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [False]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Ecommerce_store',
+    'Ecommerce_store.apps.EcommerceStoreConfig',
     'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 
