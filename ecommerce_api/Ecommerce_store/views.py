@@ -7,6 +7,9 @@ from .serializers import (
     CategorySerializer, ProductSerializer, CartSerializer, 
     CartItemSerializer, OrderSerializer
 )
+from django.http import HttpResponse
+def index(request):
+    return HttpResponse("Welcome to the E-commerce Store API")
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
