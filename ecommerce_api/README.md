@@ -32,4 +32,4 @@ Database: SQLite (Development)
  GET       /api/v1/categories/     List all product categories
 
  Why Lawal Mart?
-Lawal Mart is specifically designed for the Construction and Interior Decor industry in Nigeria. Unlike general stores, it handles specific measurements for products like Satin Paints and wall Finishes Which provides a specialized experience for contractors, engineers and homeowners.
+Lawal Mart is specifically designed for the Construction and Interior Decor industry in Nigeria. Unlike general stores, it handles specific measurements for products like Paints and wall Finishes Which provides a specialized experience for contractors, engineers and homeowners.
