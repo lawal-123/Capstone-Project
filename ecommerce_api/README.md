@@ -31,5 +31,5 @@ Database: SQLite (Development)
  POST      /api/v1/cart/           Add a product to the cart (Auth Required)
  GET       /api/v1/categories/     List all product categories
 
- Why Lawal Mart?
-Lawal Mart is specifically designed for the Construction and Interior Decor industry in Nigeria. Unlike general stores, it handles specific measurements for products like Paints and wall Finishes Which provides a specialized experience for contractors, engineers and homeowners.
+ Why ecommerce api?
+`Ecommerce is specifically designed for the Construction and Interior Decor industry in Nigeria. Unlike general stores, it handles specific measurements for products like Paints and wall Finishes Which provides a specialized experience for contractors, engineers and homeowners.
