@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Category, Product, Order, OrderItem, Cart, CartItem
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from .serializers import (
     CategorySerializer, ProductSerializer, CartSerializer, 
     CartItemSerializer, OrderSerializer
@@ -23,6 +24,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 class CartViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = CartSerializer
     permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
 
     def list(self, request, *args, **kwargs):
         cart, created = Cart.objects.get_or_create(user=request.user)
